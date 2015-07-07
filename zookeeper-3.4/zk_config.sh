@@ -7,6 +7,10 @@
 set -e 
 set -x 
 
+
+# Add job to crontab for cleaning snapshots
+/usr/local/bin/zk_clean_job.sh&
+
 #This is the Zookeeper ID for the node.
 # Supply if more than one node in the cluster
 export ZK_ID=${ZK_ID:-1}

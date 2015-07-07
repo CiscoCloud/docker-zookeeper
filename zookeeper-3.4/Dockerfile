@@ -14,6 +14,7 @@ RUN mkdir -p /opt
 
 RUN wget -q -O - http://apache.mirrors.pair.com/zookeeper/zookeeper-$ZOOKEEPER_VERSION/zookeeper-$ZOOKEEPER_VERSION.tar.gz | tar -xzf - -C /opt \
     && mv /opt/zookeeper-$ZOOKEEPER_VERSION /opt/zookeeper \
+    && sed -i '/dataDir/d' /opt/zookeeper/conf/zoo_sample.cfg \
     && cp /opt/zookeeper/conf/zoo_sample.cfg /opt/zookeeper/conf/zoo.cfg \
     && mkdir -p /tmp/zookeeper
 
@@ -24,6 +25,7 @@ EXPOSE 2181 2888 3888
 COPY zk_config.sh /usr/local/bin/
 COPY zk_launch.sh /usr/local/bin/
 COPY setacl.sh /usr/local/bin/
+COPY zk_clean_job.sh /usr/local/bin/
 
 WORKDIR /opt/zookeeper
 
